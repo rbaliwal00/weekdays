@@ -8,6 +8,7 @@ const Homepage = () => {
     const [role, setRole] = useState([]);
     const [location, setLocation] = useState([]);
     const [company, setCompany] = useState('');
+    const [offset, setOffset] = useState(0);
 
     const [jobs,setJobs] = useState([]);
 
@@ -24,12 +25,28 @@ const Homepage = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             const res = await axios.post("https://api.weekday.technology/adhoc/getSampleJdJSON", 
-            {"limit": 10,"offset": 0});
-            setData(res.data.jdList);
-            setJobs(res.data.jdList);
+            {"limit": 10,"offset": offset});
+        
+            setData([...data,...res.data.jdList]);
+            setData([...data,...res.data.jdList]);
         }
         fetchJobs();
-    }, []);
+    }, [offset]);
+
+    const handleInfiniteScroll = async () => {
+        try{
+            if(window.innerHeight + document.documentElement.scrollTop + 1 >=  document.documentElement.scrollHeight){
+                setOffset(prev => prev + 10);
+            }
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);      
+        return () => window.removeEventListener("scroll", handleInfiniteScroll);      
+    },[]);
 
     return (
         <div className='p-4'>

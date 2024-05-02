@@ -20,7 +20,7 @@ const JobCards = ({content}) => {
             <div className='text-sm'>{location}</div>
             <div className='mt-1'>Estimated Salary: 
                 {content.minJdSalary && content.maxJdSalary ? <span> {content?.minJdSalary} - {content.maxJdSalary} </span>: 
-                    <span>{content.minJdSalary ? content.minJdSalary: content.maxJdSalary} </span>
+                    <span> {content.minJdSalary ? content.minJdSalary: content.maxJdSalary} </span>
                 }
                 LPA
             </div>

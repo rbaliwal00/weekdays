@@ -7,6 +7,7 @@ const Filter = ({name, options, value, setValue}) => {
         <Autocomplete
             disablePortal
             multiple={true}
+            fullWidth={true}
             id="combo-box-demo"
             options={options}
             value={value}
